@@ -1,0 +1,24 @@
+{
+  "name": "fatcatfablab-shootinggallery",
+  "version": "1.0.0",
+  "description": "Carnival style game with ping pong balls, moving targets, sound, lights, cameras, and tweeting",
+  "main": "app.js",
+  "dependencies": {
+    "play-sound": "^0.0.9",
+    "johnny-five": "^0.10.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JeffJassky/Space-Invaders-Shooting-Gallery.git"
+  },
+  "author": "Jeff@JeffJassky.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JeffJassky/Space-Invaders-Shooting-Gallery/issues"
+  },
+  "homepage": "https://github.com/JeffJassky/Space-Invaders-Shooting-Gallery#readme"
+}
