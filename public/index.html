@@ -1,0 +1,52 @@
+<html>
+<head>
+	<title>Shooting Gallery</title>
+	<script src="/bower_components/jquery/dist/jquery.js"></script>
+	<script>
+		$(function(){
+			var form = $('form');
+			var thanks = $('#thanks').hide();
+
+			$('form').on('submit', function(e){
+				e.preventDefault();
+				$.post('/register', $(this).serialize(), function(result){
+					if(result.success){
+						$('input').val('');
+						thanks.show();
+						form.hide();
+					}
+				});
+			});
+
+			thanks.on('click', function(){
+				thanks.hide();
+				form.show();
+			});
+		});
+	</script>
+	<style>
+
+	</style>
+</head>
+<body>
+	<form>
+		<div class="input">
+			<label>Email</label>
+			<input type="email" name="email">
+		</div>
+		<div class="input">
+			<label>Name</label>
+			<input type="text" name="name">
+		</div>
+		<div class="input">
+			<label>Age</label>
+			<input type="text" name="age">
+		</div>
+		<button type="submit">Save</button>
+	</form>
+	<div id="thanks">
+		<h1>Thanks!</h1>
+		<button>Close</button>
+	</div>
+</body>
+</html>
