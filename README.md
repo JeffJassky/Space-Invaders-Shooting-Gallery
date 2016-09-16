@@ -1,5 +1,21 @@
-# Space-Invaders-Shooting-Gallery
+Apps
 
+Web server (puts data in to database)
+	Create user
+
+Game server (Runtime w/game)
+	Target Module
+		Target Hit
+		Game Ended
+	Scoreboard Module
+	Camera module
+	Game Module (Start new game w/wo user id)
+		Game started
+
+
+
+
+# Space-Invaders-Shooting-Gallery
 
 SERVER
 	iPad Front End
@@ -10,7 +26,7 @@ SERVER
 		Start game w/o user
 
 	Back End
-		game
+		Game App
 			DATA
 				user
 					id
@@ -22,11 +38,10 @@ SERVER
 				strikes
 					target
 					timestamp
-					velocity
+					user_id
 
 			DYNAMIC INPUTS
 				iPad
-				Piezos
 				Camera
 
 			DYNAMIC OUTPUTS
@@ -35,3 +50,5 @@ SERVER
 				Tweets
 
 Tweeting pictures, high scores, etc
+
+
