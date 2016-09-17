@@ -4,10 +4,12 @@
   "description": "Carnival style game with ping pong balls, moving targets, sound, lights, cameras, and tweeting",
   "main": "app.js",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.13.4",
     "johnny-five": "^0.10.0",
-    "pg-promise": "^5.3.3",
-    "play-sound": "^0.0.9"
+    "play-sound": "0.0.9",
+    "serialport": "^4.0.1",
+    "shelljs": "^0.7.4"
   },
   "devDependencies": {},
   "scripts": {

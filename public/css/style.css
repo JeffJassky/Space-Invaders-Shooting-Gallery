@@ -1,0 +1,13 @@
+ul.users{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul.users li{
+	padding:10px 15px;
+	background: #eee;
+	border-radius: 10px;
+	margin-bottom: 0;
+	margin-bottom: 10px;
+}

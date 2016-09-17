@@ -2,6 +2,7 @@
 <head>
 	<title>Shooting Gallery</title>
 	<script src="/bower_components/jquery/dist/jquery.js"></script>
+	<link rel="stylesheet" href="css/style.css" type="text/css">
 	<script>
 		$(function(){
 			var form = $('form');
@@ -9,7 +10,7 @@
 
 			$('form').on('submit', function(e){
 				e.preventDefault();
-				$.post('/register', $(this).serialize(), function(result){
+				$.post('/api/user', $(this).serialize(), function(result){
 					if(result.success){
 						$('input').val('');
 						thanks.show();
@@ -24,9 +25,6 @@
 			});
 		});
 	</script>
-	<style>
-
-	</style>
 </head>
 <body>
 	<form>
