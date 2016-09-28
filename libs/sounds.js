@@ -4,6 +4,10 @@ process.on('start', function(){
 	console.log('Starting Game...');
 	player.play('./resources/start.mp3');
 })
+process.on('userstart', function(){
+	console.log('Starting Game...');
+	// player.play('./resources/song.mp3');
+})
 process.on('strike', function(){
 	console.log('STRIKE');
 	player.play('./resources/strike.mp3');

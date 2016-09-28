@@ -3,6 +3,7 @@ var server = express();
 var db = require('./libs/database');
 var targets = require('./libs/targets');
 var sounds = require('./libs/sounds');
+var gameplay = require('./libs/gameplay');
 var camera = require('./libs/camera');
 
 server.use(express.static('public'));
@@ -28,7 +29,6 @@ server.post('/api/user', function (req, res) {
 // START GAME OF EXISTING USER
 server.get('/api/user/:userId/start', function (req, res) {
 	process.emit('userstart', req.params.userId);
-
 	res.send({
 		ok: true
 	});
