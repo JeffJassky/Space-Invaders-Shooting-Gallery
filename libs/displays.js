@@ -1,7 +1,7 @@
 // effects-code:score-hundreds:score-tens:score-ones: time-mins:time-sec-tens:time-sec-ones
 
 // 0
-// 10:10:5
+// "time:  5"
 // 1:3:4
 
 const SerialPort = require('serialport');
@@ -15,32 +15,42 @@ port.on('open',function(err){
 		return console.log('could not find targets arduino');
 	}
 	console.log('Screens connected');
+
+	port.write("0:10:10:1:1:2:3" + "\r");
 });
 
-
-function send(){
+function onTimeUpdate(){
 
 	var data = [];
 
 	// serialize effects code
-	data[] = 0;
+	data.push(0);
 
 	// serialize score
-	for(var x = q; x <= (3 - process.game.score.length); x++){
-		data[] = 10;
+	console.log('score:', process.game.score);
+
+	
+	for(var x = 1; x <= (3 - process.game.score.toString().length); x++){
+		data.push(10);
 	}
-	data.push.apply(this, process.game.score.split());
+	data.push.apply(data, process.game.score.toString().split());
 
 	var minutes = Math.floor(process.game.secondsRemaining / 60);
+
 	var tens = Math.floor(
 		(process.game.secondsRemaining - (minutes * 60)) / 10
 	);
 	var seconds = Math.floor(
 		(process.game.secondsRemaining - (minutes * 60) - (tens * 10))
-	)
-	console.log(data.join(':'));
+	);
+
+	data.push(minutes, tens, seconds);
+
+	console.log('"'+data.join(':') + '"');
+	port.write(data.join(':'));
 
 }
 
-process.on('score:update', send);
-process.on('time:update', send);
+// process.on('score:update', send);
+process.on('time:update', onTimeUpdate);
+

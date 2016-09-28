@@ -4,6 +4,7 @@ var db = require('./libs/database');
 var targets = require('./libs/targets');
 var sounds = require('./libs/sounds');
 var gameplay = require('./libs/gameplay');
+var gameplay = require('./libs/displays');
 var camera = require('./libs/camera');
 
 server.use(express.static('public'));
