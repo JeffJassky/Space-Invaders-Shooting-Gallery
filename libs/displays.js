@@ -1,23 +1,33 @@
-// effects-code:score-hundreds:score-tens:score-ones: time-mins:time-sec-tens:time-sec-ones
-
-// 0
-// "time:  5"
-// 1:3:4
-
 const SerialPort = require('serialport');
+const displayPortId = '';
+var port;
 
-var port = new SerialPort('/dev/cu.usbmodem1411', {
-  parser: SerialPort.parsers.readline('\n')
+SerialPort.list(function (err, ports) {
+        var portFound = false;
+        ports.forEach(function(port) {
+                if(port.pnpId === displayPortId){
+                        portFound = true;
+                        connectDisplayPort(port.comName);
+                }
+        });
+        if(!portFound){
+                console.log("DISPLAYS: Port not connected");
+        }
 });
 
-port.on('open',function(err){
-	if(err){
-		return console.log('could not find targets arduino');
-	}
-	console.log('Screens connected');
+function connectDisplayPort(portName){
 
-	port.write("0:10:10:1:1:2:3" + "\r");
-});
+	port = new SerialPort('/dev/ttyACM2', {
+		parser: SerialPort.parsers.readline('\n')
+	}).on('open',function(err){
+		if(err){
+			return console.log('could not find targets arduino');
+		}
+		console.log('Screens connected');
+
+		port.write("0:10:10:1:1:2:3" + "\r");
+	});
+}
 
 function onTimeUpdate(){
 
@@ -47,8 +57,9 @@ function onTimeUpdate(){
 	data.push(minutes, tens, seconds);
 
 	console.log('"'+data.join(':') + '"');
-	port.write(data.join(':'));
-
+	if(port){
+		port.write(data.join(':'));
+	}
 }
 
 // process.on('score:update', send);

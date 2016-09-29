@@ -21,7 +21,7 @@ function setupNewGame(){
 function onUserStart(userId){
 	setupNewGame();
 	process.game.userId = userId;
-	secondInterval = setInterval(onSecondInterval, 5000);
+	secondInterval = setInterval(onSecondInterval, 1000);
 	console.log('gameplay:onUserStart');
 }
 

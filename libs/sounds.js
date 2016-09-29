@@ -6,7 +6,7 @@ process.on('start', function(){
 })
 process.on('userstart', function(){
 	console.log('Starting Game...');
-	// player.play('./resources/song.mp3');
+	player.play('./resources/song.mp3');
 })
 process.on('strike', function(){
 	console.log('STRIKE');
