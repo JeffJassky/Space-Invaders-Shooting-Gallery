@@ -75,13 +75,14 @@ function clearAll(){
 	sendCommand(2, "C");
 }
 
-function setupRandomTargets(){
+function setupRandomTargets(info){
 	var allTargets = JSON.parse(JSON.stringify(targets))
 	shuffle(allTargets);
-	var randomTargets = allTargets.slice(0,10);
+	var randomTargets = allTargets.slice(0, info.count);
 	for(var x=0; x<=randomTargets.length-1; x++){
 		putUpTarget(randomTargets[x]);
 	}
+	console.log('TARGETS GOING UP:' + info.count);
 }
 
 function putUpTarget(targetNumber){
@@ -114,7 +115,7 @@ process.on('command:targets:clear', function(user){
 
 // GAMEPLAY PORTION
 var gameplaySequence = {
-	0: { function: clearAll }
+	0: { function: clearAll },
 	2: { function: setupRandomTargets, argument: {count: 10} },
 	8: { function: clearAll },
 	10:{ function: setupRandomTargets, argument: {count: 10} },
@@ -127,32 +128,34 @@ var gameplaySequence = {
 	48:{ function: clearAll },
 	50:{ function: setupRandomTargets, argument: {count: 10} },
 	58:{ function: clearAll },
-	60:{ function: setupRandomTargets, argument: {count: 10} }
+	60:{ function: setupRandomTargets, argument: {count: 10} },
 	70:{ function: clearAll },
 	77:{ function: setupRandomTargets, argument: {count: 28}},
 	85:{ function: clearAll },
-	86:{ function setupRandomTargets, argument: {count:1}},
+	86:{ function: setupRandomTargets, argument: {count:1}},
         88:{ function: clearAll },
-        90:{ function setupRandomTargets, argument: {count:1}},
+        90:{ function: setupRandomTargets, argument: {count:1}},
         92:{ function: clearAll },
-        94:{ function setupRandomTargets, argument: {count:1}},
+        94:{ function: setupRandomTargets, argument: {count:1}},
         96:{ function: clearAll },
-        98:{ function setupRandomTargets, argument: {count:1}},
+        98:{ function: setupRandomTargets, argument: {count:1}},
         100:{ function: clearAll },
-        102:{ function setupRandomTargets, argument: {count:1}},
+        102:{ function: setupRandomTargets, argument: {count:1}},
         104:{ function: clearAll },
-        106:{ function setupRandomTargets, argument: {count:1}},
+        106:{ function: setupRandomTargets, argument: {count:1}},
         108:{ function: clearAll },
-        100:{ function setupRandomTargets, argument: {count:1}},
+        100:{ function: setupRandomTargets, argument: {count:1}},
         102:{ function: clearAll },
-        104:{ function setupRandomTargets, argument: {count:1}},
+        104:{ function: setupRandomTargets, argument: {count:1}},
         106:{ function: clearAll },
-        108:{ function setupRandomTargets, argument: {count:28}}
+        108:{ function: setupRandomTargets, argument: {count:28}},
+	120:{ function: clearAll }
 };
 
 process.on('time:update', function(time){
-	if(gameplaySequence[time].function){
+	if(gameplaySequence[time] && gameplaySequence[time].function){
 		var arg = gameplaySequence[time].argument;
-		gameplaySequence[time].function(arg ? arg : null);
+		arg = arg ? arg : null;
+		gameplaySequence[time].function(arg);
 	}
 });

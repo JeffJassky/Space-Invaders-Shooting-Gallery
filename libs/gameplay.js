@@ -43,6 +43,7 @@ function onStrike(strike){
 
 
 function tearDownGame(){
+	process.emit('game:complete');
 	console.log('GAME COMPLETE');
 	console.log('Hits:' + process.game.strikes.length);
 	clearInterval(secondInterval);
