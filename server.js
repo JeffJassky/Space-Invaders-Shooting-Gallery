@@ -21,12 +21,21 @@ server.get('/api/users', function (req, res) {
 
 // CREATE A NEW USER
 server.post('/api/user', function (req, res) {
-	console.log(req.body);
 	db.addUser(req.body, function(){
 		res.send({
 			success: true
 		});
 	});
+});
+
+
+// CREATE A NEW USER
+server.delete('/api/user', function (req, res) {
+        db.deleteUser(req.body, function(){
+                res.send({
+                        success: true
+                });
+        });
 });
 
 // START GAME OF EXISTING USER

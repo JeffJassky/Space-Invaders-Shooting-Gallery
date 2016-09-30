@@ -1,6 +1,9 @@
 const SerialPort = require('serialport');
 const displayPortId = 'usb-Arduino_LLC_Arduino_Leonardo-if00';
 var port;
+const effects = [2,3,4];
+const defaultEffectCode = 1;
+
 
 SerialPort.list(function (err, ports) {
         var portFound = false;
@@ -15,6 +18,12 @@ SerialPort.list(function (err, ports) {
                 console.log("DISPLAYS: Port not connected");
         }
 });
+
+
+process.on('time:update', function(time){
+	
+});
+
 
 function connectDisplayPort(portName){
 
@@ -33,9 +42,9 @@ function connectDisplayPort(portName){
 function onTimeUpdate(){
 
 	var data = [];
-
 	// serialize effects code
-	data.push(0);
+	var effectCode = effects[Math.floor(Math.random()*effects.length)];
+	data.push(effectCode);
 
 	// serialize score
 	console.log('score:', process.game.score);

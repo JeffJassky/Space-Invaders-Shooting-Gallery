@@ -13,7 +13,8 @@
 						var className = user.score ? 'dequeued' : 'queued';
 						$users.append(
 							'<li data-id="' + user.id + '" class="'+className+'">' + 
-							user.name + ', (' + user.email + ')</li>'
+							user.name + ', (' + user.email + ') SCORE: '+user.score+
+							'</li>'
 						);
 					}
 					$('li').click(function(){

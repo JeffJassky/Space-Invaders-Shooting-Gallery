@@ -18,10 +18,20 @@ exports.addUser = function(user, callback){
 exports.listUsers = function(callback){
 	db.serialize(function() {
 		db.all(
-			"select rowid as id, email, name, hits, score from users",
+			"select rowid as id, email, name, hits, score from users order by rowid desc",
 			callback
 		);
 	});
+};
+
+exports.deleteUser = function(user, callback){
+        db.serialize(function() {
+                db.run(
+                        'delete from users where rowid = ?',
+                        [user.id],
+                        callback
+                );
+        });
 };
 
 function saveCurrentUser(callback){
