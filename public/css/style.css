@@ -11,3 +11,6 @@ ul.users li{
 	margin-bottom: 0;
 	margin-bottom: 10px;
 }
+ul.users li.queued{
+	background: #66ff66;
+}

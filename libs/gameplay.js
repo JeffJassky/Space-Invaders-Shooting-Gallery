@@ -1,6 +1,7 @@
 const gameTemplate = {
 	userId: null,
 	secondsRemaining: 120,
+	totalSeconds: 120,
 	score: 0,
 	strikes: []
 };
@@ -36,7 +37,14 @@ function onSecondInterval(){
 
 function onStrike(strike){
 	process.game.strikes.push(strike);
-	process.game.score++;
+	var currentSecond = process.game.totalSeconds - process.game.secondsRemaining;
+
+	var scoreToAdd = 3;
+	if(currentSecond > 85 && currentSecond < 108){
+		scoreToAdd = 10;
+	}
+
+	process.game.score += scoreToAdd;
 	process.emit('score:update', process.game.strikes.length);
 	console.log('gameplay:onStrike strikes:' + process.game.strikes.length);
 }

@@ -1,5 +1,5 @@
 const SerialPort = require('serialport');
-const displayPortId = '';
+const displayPortId = 'usb-Arduino_LLC_Arduino_Leonardo-if00';
 var port;
 
 SerialPort.list(function (err, ports) {
@@ -7,6 +7,7 @@ SerialPort.list(function (err, ports) {
         ports.forEach(function(port) {
                 if(port.pnpId === displayPortId){
                         portFound = true;
+ 			console.log('SCREEN PORT FOUND');
                         connectDisplayPort(port.comName);
                 }
         });
@@ -17,15 +18,15 @@ SerialPort.list(function (err, ports) {
 
 function connectDisplayPort(portName){
 
-	port = new SerialPort('/dev/ttyACM2', {
+	port = new SerialPort(portName, {
 		parser: SerialPort.parsers.readline('\n')
 	}).on('open',function(err){
 		if(err){
 			return console.log('could not find targets arduino');
 		}
 		console.log('Screens connected');
-
-		port.write("0:10:10:1:1:2:3" + "\r");
+	}).on('error', function(error){
+		console.log('SERIAL ERROR', error);
 	});
 }
 
@@ -43,7 +44,7 @@ function onTimeUpdate(){
 	for(var x = 1; x <= (3 - process.game.score.toString().length); x++){
 		data.push(10);
 	}
-	data.push.apply(data, process.game.score.toString().split());
+	data.push.apply(data, process.game.score.toString().split(''));
 
 	var minutes = Math.floor(process.game.secondsRemaining / 60);
 
@@ -56,9 +57,12 @@ function onTimeUpdate(){
 
 	data.push(minutes, tens, seconds);
 
-	console.log('"'+data.join(':') + '"');
+	for(var i=0; i<=data.length-1; i++){
+		data[i] = data[i].toString().length === 1 ? '0' + data[i] : data[i];
+	}
+	console.log('"'+data.join('-') + '"');
 	if(port){
-		port.write(data.join(':'));
+		port.write(data.join('') +  "\n");
 	}
 }
 

@@ -5,6 +5,7 @@ process.on('game:complete', saveCurrentUser);
 
 
 exports.addUser = function(user, callback){
+	console.log(user.email, user.name);
 	db.serialize(function() {
   		db.run(
   			'insert into users (email, name) values (?,?)',

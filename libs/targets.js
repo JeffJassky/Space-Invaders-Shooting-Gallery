@@ -3,7 +3,7 @@ const SerialPort = require('serialport');
 const port1ID = 'usb-Teensyduino_USB_Serial_533680-if00';
 const port2ID = 'usb-Teensyduino_USB_Serial_532580-if00';
 
-const targets = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,34,35,36,27];
+const targets = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27];
 
 const events = {
 	'start': 'start',
@@ -87,11 +87,12 @@ function setupRandomTargets(info){
 
 function putUpTarget(targetNumber){
 	var port = targetNumber <= 15 ? 1 : 2;
-	var targetCode = port === 1 ? targetNumber : targetNumber - 15;
-	sendCommand(port, 'B'+targetNumber);
+	var targetCode = port === 1 ? targetNumber : targetNumber - 16;
+	sendCommand(port, 'B'+targetCode);
 }
 
 function sendCommand(port, command){
+	console.log("WRITING TO PORT " + port, command);
 	if(port === 1 && port1){
 		port1.write(command + "\r");
 	}else if(port === 2 && port2){
@@ -116,38 +117,45 @@ process.on('command:targets:clear', function(user){
 // GAMEPLAY PORTION
 var gameplaySequence = {
 	0: { function: clearAll },
-	2: { function: setupRandomTargets, argument: {count: 10} },
+	2: { function: setupRandomTargets, argument: {count: 6} },
 	8: { function: clearAll },
-	10:{ function: setupRandomTargets, argument: {count: 10} },
-	18:{ function: clearAll },
-	20:{ function: setupRandomTargets, argument: {count: 10} },
-	28:{ function: clearAll },
-	30:{ function: setupRandomTargets, argument: {count: 10} },
-	38:{ function: clearAll },
+	10:{ function: setupRandomTargets, argument: {count: 6} },
+	19:{ function: clearAll },
+	20:{ function: setupRandomTargets, argument: {count: 8} },
+	29:{ function: clearAll },
+	30:{ function: setupRandomTargets, argument: {count: 8} },
+	39:{ function: clearAll },
 	40:{ function: setupRandomTargets, argument: {count: 10} },
-	48:{ function: clearAll },
+	49:{ function: clearAll },
 	50:{ function: setupRandomTargets, argument: {count: 10} },
-	58:{ function: clearAll },
+	59:{ function: clearAll },
 	60:{ function: setupRandomTargets, argument: {count: 10} },
 	70:{ function: clearAll },
 	77:{ function: setupRandomTargets, argument: {count: 28}},
 	85:{ function: clearAll },
 	86:{ function: setupRandomTargets, argument: {count:1}},
-        88:{ function: clearAll },
+        87:{ function: clearAll },
+        88:{ function: setupRandomTargets, argument: {count:1}},
+        89:{ function: clearAll },
         90:{ function: setupRandomTargets, argument: {count:1}},
-        92:{ function: clearAll },
+        91:{ function: clearAll },
+        92:{ function: setupRandomTargets, argument: {count:1}},
+        93:{ function: clearAll },
         94:{ function: setupRandomTargets, argument: {count:1}},
-        96:{ function: clearAll },
+        95:{ function: clearAll },
+        96:{ function: setupRandomTargets, argument: {count:1}},
+        97:{ function: clearAll },
         98:{ function: setupRandomTargets, argument: {count:1}},
-        100:{ function: clearAll },
-        102:{ function: setupRandomTargets, argument: {count:1}},
-        104:{ function: clearAll },
-        106:{ function: setupRandomTargets, argument: {count:1}},
-        108:{ function: clearAll },
+        99:{ function: clearAll },
         100:{ function: setupRandomTargets, argument: {count:1}},
-        102:{ function: clearAll },
+        101:{ function: clearAll },
+        102:{ function: setupRandomTargets, argument: {count:1}},
+        103:{ function: clearAll },
         104:{ function: setupRandomTargets, argument: {count:1}},
-        106:{ function: clearAll },
+        105:{ function: clearAll },
+        106:{ function: setupRandomTargets, argument: {count:1}},
+        107:{ function: clearAll },
+
         108:{ function: setupRandomTargets, argument: {count:28}},
 	120:{ function: clearAll }
 };
