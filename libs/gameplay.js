@@ -3,20 +3,28 @@ const gameTemplate = {
 	secondsRemaining: 120,
 	totalSeconds: 120,
 	score: 0,
-	strikes: []
+	strikes: [],
+	inProgress: true
 };
 var secondInterval;
 
 // WHEN THE "userstart" HAPPENS
+process.on('prestart', onPrestart);
 process.on('userstart', onUserStart);
 process.on('strike', onStrike);
 process.on('time:update:' + gameTemplate.secondsRemaining, tearDownGame);
 
 setupNewGame();
-
+process.game.inProgress = false;
 function setupNewGame(){
 	console.log('gameplay:setupNewGame');
 	process.game = JSON.parse(JSON.stringify(gameTemplate));
+}
+
+function onPrestart(userId){
+	setTimeout(function(){
+		process.emit('userstart', userId);
+	}, 3000);
 }
 
 function onUserStart(userId){
@@ -51,6 +59,7 @@ function onStrike(strike){
 
 
 function tearDownGame(){
+	process.game.inProgress = false;
 	process.emit('game:complete');
 	console.log('GAME COMPLETE');
 	console.log('Hits:' + process.game.strikes.length);

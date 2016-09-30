@@ -2,6 +2,8 @@ const SerialPort = require('serialport');
 const displayPortId = 'usb-Arduino_LLC_Arduino_Leonardo-if00';
 var port;
 const effects = [2,3,4];
+const numberEffects = [11,12,13];
+
 const defaultEffectCode = 1;
 
 
@@ -20,8 +22,18 @@ SerialPort.list(function (err, ports) {
 });
 
 
-process.on('time:update', function(time){
-	
+process.on('prestart', function(){
+	console.log('3');
+	port.write("10\n");
+	port.write('00100310100310'+"\n");
+	setTimeout(function(){
+		console.log("2");
+	        port.write('00100210100210'+"\n");
+	}, 1000);
+        setTimeout(function(){
+		console.log('1');
+                port.write('00100110100110'+"\n");
+        }, 2000);
 });
 
 
@@ -43,6 +55,7 @@ function onTimeUpdate(){
 
 	var data = [];
 	// serialize effects code
+	
 	var effectCode = effects[Math.floor(Math.random()*effects.length)];
 	data.push(effectCode);
 
@@ -78,3 +91,11 @@ function onTimeUpdate(){
 // process.on('score:update', send);
 process.on('time:update', onTimeUpdate);
 
+process.on('game:complete', function(){
+	setTimeout(sendRandomEffectCode, 5000);
+});
+
+function sendRandomEffectCode() {
+	var effectCode = numberEffects[Math.floor(Math.random()*numberEffects.length)];
+	port.write(effectCode + "\n");
+}

@@ -1,0 +1,56 @@
+<html>
+<head>
+	<title>Shooting Gallery</title>
+	<script src="/bower_components/jquery/dist/jquery.js"></script>
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		$(function(){
+			var form = $('form');
+			var thanks = $('#thanks').hide();
+			var logo = $('.logo').hide();
+
+			$('form').on('submit', function(e){
+				e.preventDefault();
+				$.post('/api/user', $(this).serialize(), function(result){
+					if(result.success){
+						$('input').val('');
+						thanks.show();
+						form.hide();
+						logo.hide();
+					}
+				});
+			});
+
+			thanks.on('click', function(){
+				thanks.hide();
+				form.show();
+				logo.show();
+			});
+		});
+	</script>
+</head>
+<body>
+	<img src="img/fcfl-logo.png" class="logo">
+	<form>
+		<div class="input">
+			<input type="email" name="email" placeholder="Email">
+		</div>
+		<div class="input">
+			<input type="text" name="name" placeholder="Name">
+		</div>
+		<div class="input checkbox">
+			<input type="checkbox" name="subscribe" value="1" checked>
+			<label for="subscribe">Subscribe mailing list & receive <strong>pictures from the game</strong>!</label>
+		</div>
+		<div class="input checkbox">
+			<input type="checkbox" name="giveaway" value="1" checked>
+			<label for="giveaway">Sign up to <strong>win free membership</strong>!</label>
+		</div>
+		<button type="submit">PLAY</button>
+	</form>
+	<div id="thanks">
+		<h1>Thanks!</h1>
+		<button>Close</button>
+	</div>
+</body>
+</html>

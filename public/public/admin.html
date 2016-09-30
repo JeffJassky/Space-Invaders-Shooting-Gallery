@@ -1,0 +1,37 @@
+<html>
+<head>
+	<title>Shooting Gallery</title>
+	<script src="/bower_components/jquery/dist/jquery.js"></script>
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		$(function(){
+			var $users = $('.users');
+			$.get('/api/users', function(users){
+				if(users.length){
+					for(var i in users){
+						var user = users[i];
+						var className = user.score ? 'dequeued' : 'queued';
+						$users.append(
+							'<li data-id="' + user.id + '" class="'+className+'"><strong>' + 
+							user.name + '</strong>, (' + user.email + ') SCORE: '+user.score+
+							'</li>'
+						);
+					}
+					$('li').click(function(){
+						var userId = $(this).data('id');
+						$.get('/api/user/'+userId+'/start', function(){
+							window.location.reload();
+						});
+					});
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+<h1>Users in line</h1>
+<ul class="users">
+
+</ul>
+</body>
+</html>

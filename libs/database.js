@@ -8,8 +8,8 @@ exports.addUser = function(user, callback){
 	console.log(user.email, user.name);
 	db.serialize(function() {
   		db.run(
-  			'insert into users (email, name) values (?,?)',
-  			[user.email, user.name],
+  			'insert into users (email, name, subscribe, giveaway) values (?,?,?,?)',
+  			[user.email, user.name, user.subscribe, user.giveaway],
   			callback
   		);
 	});
@@ -18,7 +18,7 @@ exports.addUser = function(user, callback){
 exports.listUsers = function(callback){
 	db.serialize(function() {
 		db.all(
-			"select rowid as id, email, name, hits, score from users order by rowid desc",
+			"select rowid as id, email, name, hits, score, subscribe, giveaway from users order by rowid desc",
 			callback
 		);
 	});

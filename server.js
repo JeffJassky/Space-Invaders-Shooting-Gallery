@@ -8,6 +8,7 @@ var displays = require('./libs/displays');
 var camera = require('./libs/camera');
 
 server.use(express.static('public'));
+server.use(express.static('resources/pictures'));
 var bodyParser = require('body-parser')
 // server.use(bodyParser.json());       // to support JSON-encoded bodies
 server.use(bodyParser.urlencoded({ extended: false }));
@@ -40,7 +41,9 @@ server.delete('/api/user', function (req, res) {
 
 // START GAME OF EXISTING USER
 server.get('/api/user/:userId/start', function (req, res) {
-	process.emit('userstart', req.params.userId);
+	if(!process.game.inProgress){
+		process.emit('prestart', req.params.userId);
+	}
 	res.send({
 		success: true
 	});
