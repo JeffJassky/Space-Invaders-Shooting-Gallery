@@ -23,17 +23,20 @@ SerialPort.list(function (err, ports) {
 
 
 process.on('prestart', function(){
-	console.log('3');
-	port.write("10\n");
-	port.write('00100310100310'+"\n");
+	console.log("new game");
+        port.write('10'+"\n");
+	setTimeout(function(){
+		console.log("3");
+	        port.write('00100310100310'+"\n");
+	}, 4000);
 	setTimeout(function(){
 		console.log("2");
 	        port.write('00100210100210'+"\n");
-	}, 1000);
+	}, 5000);
         setTimeout(function(){
 		console.log('1');
                 port.write('00100110100110'+"\n");
-        }, 2000);
+        }, 6000);
 });
 
 

@@ -56,5 +56,20 @@ ul.users li{
 	list-style: none;
 }
 ul.users li.queued{
-	background: #66ff66;
 }
+ul.users li.rando{
+	color: #fff;
+	background: #6edd6b;
+	text-align: center;
+font-weight: bold;
+font-size: 2em;
+position: absolute;
+line-height:100px;
+width: auto;
+display: inline-block;
+top: 40%;
+left: 50%;
+margin-left: -150px;
+width:300px;
+}
+

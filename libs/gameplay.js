@@ -24,7 +24,8 @@ function setupNewGame(){
 function onPrestart(userId){
 	setTimeout(function(){
 		process.emit('userstart', userId);
-	}, 3000);
+		process.game.inProgress = true;
+	}, 6000);
 }
 
 function onUserStart(userId){

@@ -5,7 +5,7 @@ var targets = require('./libs/targets');
 var sounds = require('./libs/sounds');
 var gameplay = require('./libs/gameplay');
 var displays = require('./libs/displays');
-var camera = require('./libs/camera');
+// var camera = require('./libs/camera');
 
 server.use(express.static('public'));
 server.use(express.static('resources/pictures'));
