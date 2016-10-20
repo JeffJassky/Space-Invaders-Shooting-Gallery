@@ -2,3 +2,5 @@ mydatabase.db
 node_modules
 public/bower_components
 resources/pictures
+
+.DS_Store
